@@ -1,5 +1,6 @@
 package com.example.androiddevchallenge.ui.components
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,7 +26,7 @@ fun PupListItem(
 ) {
     PupCard(
         elevation = 4.dp,
-        shape = RoundedCornerShape(32.dp)
+        shape = RoundedCornerShape(16.dp)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -74,11 +75,10 @@ fun LightThemePupListItem() {
     }
 }
 
-/*@Preview("Dark Theme", widthDp = 360, heightDp = 640)
+@Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkThemePupListItem() {
-    MyTheme(darkTheme = true) {
-        PupListItem("", "", "","")
+    PupTheme(darkTheme = true) {
+        PupListItem("")
     }
 }
-*/

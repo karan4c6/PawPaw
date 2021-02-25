@@ -56,7 +56,7 @@ fun PupTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() 
 
     MaterialTheme(
         colors = colors,
-        typography = typography,
+        typography = Typography,
         shapes = shapes,
         content = content
     )
