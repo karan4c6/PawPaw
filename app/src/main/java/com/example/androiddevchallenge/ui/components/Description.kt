@@ -24,14 +24,17 @@ import com.example.androiddevchallenge.ui.theme.PupTheme
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun PupDescription(pup: Pup) {
+fun PupDescription(pupId: Long) {
+
+    val pup: Pup = pupsList.first { it.id == pupId }
     Surface(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colors.surface) {
         Column {
+            Spacer(modifier = Modifier.height(2.dp))
             Surface(
                 elevation = 8.dp,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp),
+                    .height(300.dp),
                 shape = RectangleShape,
                 color = MaterialTheme.colors.surface
             ) {
@@ -93,7 +96,7 @@ private fun PupDetailRow(title: String, desc: String) {
 @Composable
 fun LightThemePupDescription() {
     PupTheme {
-        PupDescription(pupsList[0])
+        PupDescription(pupsList[0].id)
     }
 }
 
@@ -101,6 +104,6 @@ fun LightThemePupDescription() {
 @Composable
 fun DarkThemePupDescription() {
     PupTheme(darkTheme = true) {
-        PupDescription(pupsList[0])
+        PupDescription(pupsList[0].id)
     }
 }

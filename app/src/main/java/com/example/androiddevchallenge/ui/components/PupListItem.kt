@@ -15,7 +15,6 @@
  */
 package com.example.androiddevchallenge.ui.components
 
-import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,7 +24,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -39,8 +37,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.model.Pup
 import com.example.androiddevchallenge.model.pupsList
+import com.example.androiddevchallenge.ui.home.demo
 import com.example.androiddevchallenge.ui.theme.PupTheme
-import com.example.androiddevchallenge.ui.views.onPupItemClicked
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
@@ -98,7 +96,7 @@ fun PupListItem(
 @Composable
 fun LightThemePupListItem() {
     PupTheme {
-        PupListItem(pupsList[0], ::onPupItemClicked)
+        PupListItem(pupsList[0], ::demo)
     }
 }
 
@@ -106,6 +104,6 @@ fun LightThemePupListItem() {
 @Composable
 fun DarkThemePupListItem() {
     PupTheme(darkTheme = true) {
-        PupListItem(pupsList[0], ::onPupItemClicked)
+        PupListItem(pupsList[0], ::demo)
     }
 }

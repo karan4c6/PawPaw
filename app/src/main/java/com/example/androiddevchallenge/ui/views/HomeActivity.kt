@@ -17,22 +17,40 @@ package com.example.androiddevchallenge.ui.views
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.animation.Crossfade
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import com.example.androiddevchallenge.model.pupsList
+import com.example.androiddevchallenge.ui.components.PupDescription
 import com.example.androiddevchallenge.ui.home.Home
 import com.example.androiddevchallenge.ui.theme.PupTheme
+import com.example.androiddevchallenge.ui.utils.Actions
+import com.example.androiddevchallenge.ui.utils.Destination
+import com.example.androiddevchallenge.ui.utils.LocalSysUiController
+import com.example.androiddevchallenge.ui.utils.Navigator
+import com.example.androiddevchallenge.ui.utils.SystemUiController
+import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // This app draws behind the system bars, so we want to handle fitting system windows
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         setContent {
-            PupTheme {
-                MyApp()
+            val systemUiController = remember { SystemUiController(window) }
+            CompositionLocalProvider(LocalSysUiController provides systemUiController) {
+                PupTheme {
+                    MyApp(onBackPressedDispatcher)
+                }
             }
         }
     }
@@ -50,9 +68,23 @@ fun onPupItemClicked(pupId: Long) {
 
 // Start building your app here!
 @Composable
-fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Home(pupsList)
+fun MyApp(backDispatcher: OnBackPressedDispatcher) {
+
+    val navigator: Navigator<Destination> = rememberSaveable(
+        saver = Navigator.saver(backDispatcher)
+    ) {
+        Navigator(Destination.Home, backDispatcher)
+    }
+    val actions = remember(navigator) { Actions(navigator) }
+    ProvideWindowInsets {
+        Crossfade(navigator.current) { destination ->
+            when (destination) {
+                Destination.Home -> Home(actions.selectPup)
+                is Destination.PupDetail -> PupDescription(
+                    pupId = destination.pupId
+                )
+            }
+        }
     }
 }
 
@@ -60,7 +92,7 @@ fun MyApp() {
 @Composable
 fun LightPreview() {
     PupTheme {
-        MyApp()
+        //MyApp()
     }
 }
 
@@ -68,6 +100,6 @@ fun LightPreview() {
 @Composable
 fun DarkPreview() {
     PupTheme(darkTheme = true) {
-        MyApp()
+        //MyApp()
     }
 }

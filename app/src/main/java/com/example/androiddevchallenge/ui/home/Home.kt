@@ -22,34 +22,30 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.androiddevchallenge.R
-import com.example.androiddevchallenge.model.Pup
 import com.example.androiddevchallenge.model.pupsList
 import com.example.androiddevchallenge.ui.components.PupListItem
 import com.example.androiddevchallenge.ui.theme.PupTheme
-import com.example.androiddevchallenge.ui.views.onPupItemClicked
 
 @Composable
-fun Home(pupList: List<Pup>) {
+fun Home(selectPup: (Long) -> Unit) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Column {
+/*
             TopAppBar(title = {
                 Text(stringResource(id = R.string.app_name))
             })
+*/
             Spacer(Modifier.height(8.dp))
             LazyColumn(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                itemsIndexed(pupList) { _, pup ->
+                itemsIndexed(pupsList) { _, pup ->
                     PupListItem(
                         pup,
-                        onItemClick = ::onPupItemClicked
+                        onItemClick = selectPup
                     )
                     Spacer(Modifier.height(8.dp))
                 }
@@ -64,7 +60,7 @@ fun Home(pupList: List<Pup>) {
 @Composable
 private fun LightHome() {
     PupTheme {
-        Home(pupsList)
+        Home(::demo)
     }
 }
 
@@ -72,6 +68,10 @@ private fun LightHome() {
 @Composable
 private fun DarkHome() {
     PupTheme(darkTheme = true) {
-        Home(pupsList)
+        Home(::demo)
     }
+}
+
+fun demo(a: Long) {
+
 }
