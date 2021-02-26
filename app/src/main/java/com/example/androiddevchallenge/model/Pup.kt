@@ -24,83 +24,215 @@ data class Pup(
     val imageUrl: String,
     val title: String = "",
     val description: String = "",
-    val latitude: Float? = null,
-    val longitude: Float? = null,
+    val pupDetail: PupDetail
+)
+
+@Immutable
+data class PupDetail(
+    val gender: String,
+    val breed: String,
+    val color: String,
+    val age: String,
+    val desexed: Boolean = false,
+    val location: String,
+    val adoptionFee: String,
+    val microChipped: Boolean = false,
+    val wormed: Boolean = false,
+    val vetChecked: Boolean = false
 )
 
 /**
  * Static Data
  */
-
 val pupsList = listOf(
     Pup(
         id = 1L,
         name = "Pup1",
         imageUrl = "https://source.unsplash.com/9LkqymZFLrE",
-        title = "Adpot Me",
-        description = "Woof Woof Demo Description"
+        title = "Archie",
+        description = "Medium Male Dog",
+        pupDetail = PupDetail(
+            gender = "Male",
+            breed = "Labrador",
+            color = "Black",
+            age = "2 weeks",
+            desexed = false,
+            location = "Toowoomba, QLD",
+            adoptionFee = "$295.00",
+            microChipped = false,
+            wormed = true,
+            vetChecked = false
+        )
     ),
     Pup(
         id = 2L,
         name = "Pup2",
         imageUrl = "https://source.unsplash.com/sVtcRzphxbk",
         title = "Adpot Me",
-        description = "Woof Woof Demo Description"
+        description = "Woof Woof Demo Description",
+        pupDetail = PupDetail(
+            gender = "Male",
+            breed = "Labrador",
+            color = "Black",
+            age = "2 weeks",
+            desexed = false,
+            location = "Toowoomba, QLD",
+            adoptionFee = "$295.00",
+            microChipped = false,
+            wormed = true,
+            vetChecked = false
+        )
     ),
     Pup(
         id = 3L,
         name = "Pup3",
         imageUrl = "https://source.unsplash.com/DTSDD968Mpw",
         title = "Adpot Me",
-        description = "Woof Woof Demo Description"
+        description = "Woof Woof Demo Description",
+        pupDetail = PupDetail(
+            gender = "Male",
+            breed = "Labrador",
+            color = "Black",
+            age = "2 weeks",
+            desexed = false,
+            location = "Toowoomba, QLD",
+            adoptionFee = "$295.00",
+            microChipped = false,
+            wormed = true,
+            vetChecked = false
+        )
     ),
     Pup(
         id = 4L,
         name = "Pup4",
         imageUrl = "https://source.unsplash.com/NYuUoKjJR-c",
         title = "Adpot Me",
-        description = "Woof Woof Demo Description"
+        description = "Woof Woof Demo Description",
+        pupDetail = PupDetail(
+            gender = "Male",
+            breed = "Labrador",
+            color = "Black",
+            age = "2 weeks",
+            desexed = false,
+            location = "Toowoomba, QLD",
+            adoptionFee = "$295.00",
+            microChipped = false,
+            wormed = true,
+            vetChecked = false
+        )
     ),
     Pup(
         id = 5L,
         name = "Pup5",
         imageUrl = "https://source.unsplash.com/ngqyo2AYYnE",
         title = "Adpot Me",
-        description = "Woof Woof Demo Description"
+        description = "Woof Woof Demo Description",
+        pupDetail = PupDetail(
+            gender = "Male",
+            breed = "Labrador",
+            color = "Black",
+            age = "2 weeks",
+            desexed = false,
+            location = "Toowoomba, QLD",
+            adoptionFee = "$295.00",
+            microChipped = false,
+            wormed = true,
+            vetChecked = false
+        )
     ),
     Pup(
         id = 6L,
         name = "Pup6",
         imageUrl = "https://source.unsplash.com/Sg3XwuEpybU",
         title = "Adpot Me",
-        description = "Woof Woof Demo Description"
+        description = "Woof Woof Demo Description",
+        pupDetail = PupDetail(
+            gender = "Male",
+            breed = "Labrador",
+            color = "Black",
+            age = "2 weeks",
+            desexed = false,
+            location = "Toowoomba, QLD",
+            adoptionFee = "$295.00",
+            microChipped = false,
+            wormed = true,
+            vetChecked = false
+        )
     ),
     Pup(
         id = 7L,
         name = "Pup7",
         imageUrl = "https://source.unsplash.com/QZenflkkwt0",
         title = "Adpot Me",
-        description = "Woof Woof Demo Description"
+        description = "Woof Woof Demo Description",
+        pupDetail = PupDetail(
+            gender = "Male",
+            breed = "Labrador",
+            color = "Black",
+            age = "2 weeks",
+            desexed = false,
+            location = "Toowoomba, QLD",
+            adoptionFee = "$295.00",
+            microChipped = false,
+            wormed = true,
+            vetChecked = false
+        )
     ),
     Pup(
         id = 8L,
         name = "Pup8",
         imageUrl = "https://source.unsplash.com/BN6uvogY5VM",
         title = "Adpot Me",
-        description = "Woof Woof Demo Description"
+        description = "Woof Woof Demo Description",
+        pupDetail = PupDetail(
+            gender = "Male",
+            breed = "Labrador",
+            color = "Black",
+            age = "2 weeks",
+            desexed = false,
+            location = "Toowoomba, QLD",
+            adoptionFee = "$295.00",
+            microChipped = false,
+            wormed = true,
+            vetChecked = false
+        )
     ),
     Pup(
         id = 9L,
         name = "Pup9",
         imageUrl = "https://source.unsplash.com/kjcivvWaD5I",
         title = "Adpot Me",
-        description = "Woof Woof Demo Description"
+        description = "Woof Woof Demo Description",
+        pupDetail = PupDetail(
+            gender = "Male",
+            breed = "Labrador",
+            color = "Black",
+            age = "2 weeks",
+            desexed = false,
+            location = "Toowoomba, QLD",
+            adoptionFee = "$295.00",
+            microChipped = false,
+            wormed = true,
+            vetChecked = false
+        )
     ),
     Pup(
         id = 10L,
         name = "Pup10",
         imageUrl = "https://source.unsplash.com/Qb7D1xw28Co",
         title = "Adpot Me",
-        description = "Woof Woof Demo Description"
+        description = "Woof Woof Demo Description",
+        pupDetail = PupDetail(
+            gender = "Male",
+            breed = "Labrador",
+            color = "Black",
+            age = "2 weeks",
+            desexed = false,
+            location = "Toowoomba, QLD",
+            adoptionFee = "$295.00",
+            microChipped = false,
+            wormed = true,
+            vetChecked = false
+        )
     )
 )

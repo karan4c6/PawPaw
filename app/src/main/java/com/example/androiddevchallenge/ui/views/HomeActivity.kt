@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge
+package com.example.androiddevchallenge.ui.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
@@ -37,6 +38,16 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+fun onPupItemClicked(pupId: Long) {
+    val TAG = "Karan"
+    Log.d(TAG, "onPupItemClicked: $pupId, ${pupsList.any { it.id == pupId }}")
+
+    /*val intent = Intent(this, DetailActivity::class.java).apply {
+        putExtra("pupId", pupId)
+    }
+    startActivity(intent)*/
+}
+
 // Start building your app here!
 @Composable
 fun MyApp() {
@@ -49,6 +60,14 @@ fun MyApp() {
 @Composable
 fun LightPreview() {
     PupTheme {
+        MyApp()
+    }
+}
+
+@Preview("Dark Theme", widthDp = 360, heightDp = 640)
+@Composable
+fun DarkPreview() {
+    PupTheme(darkTheme = true) {
         MyApp()
     }
 }
