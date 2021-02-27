@@ -58,13 +58,15 @@ fun PupListItem(
             contentDescription = "Puppy ${pup.title} ${pup.description} Double Tap for More Details"
         }
     ) {
-        Surface(modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp)
-            .clearAndSetSemantics { }
-            .clickable {
-                onItemClick(pup.id)
-            }) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(300.dp)
+                .clearAndSetSemantics { }
+                .clickable {
+                    onItemClick(pup.id)
+                }
+        ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.wrapContentSize()

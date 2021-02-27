@@ -1,8 +1,8 @@
-# Put title of your app here
+# Paw Paw
 
 <!--- Replace <OWNER> with your Github Username and <REPOSITORY> with the name of your repository. -->
 <!--- You can find both of these in the url bar when you open your repository in github. -->
-![Workflow result](https://github.com/<OWNER>/<REPOSITORY>/workflows/Check/badge.svg)
+![Workflow result](https://github.com/karansyd4/PawPaw/workflows/Check/badge.svg)
 
 
 ## :scroll: Description
