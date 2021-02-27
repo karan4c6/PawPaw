@@ -60,7 +60,7 @@ fun Home(selectPup: (Long) -> Unit) {
 @Composable
 private fun LightHome() {
     PupTheme {
-        Home(::demo)
+        Home {}
     }
 }
 
@@ -68,10 +68,6 @@ private fun LightHome() {
 @Composable
 private fun DarkHome() {
     PupTheme(darkTheme = true) {
-        Home(::demo)
+        Home {}
     }
-}
-
-fun demo(a: Long) {
-
 }

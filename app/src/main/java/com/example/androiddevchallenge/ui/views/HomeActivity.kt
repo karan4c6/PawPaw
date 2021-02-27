@@ -16,7 +16,6 @@
 package com.example.androiddevchallenge.ui.views
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.compose.setContent
@@ -25,9 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
-import com.example.androiddevchallenge.model.pupsList
 import com.example.androiddevchallenge.ui.components.PupDescription
 import com.example.androiddevchallenge.ui.home.Home
 import com.example.androiddevchallenge.ui.theme.PupTheme
@@ -42,9 +39,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // This app draws behind the system bars, so we want to handle fitting system windows
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
         setContent {
             val systemUiController = remember { SystemUiController(window) }
             CompositionLocalProvider(LocalSysUiController provides systemUiController) {
@@ -54,16 +49,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-fun onPupItemClicked(pupId: Long) {
-    val TAG = "Karan"
-    Log.d(TAG, "onPupItemClicked: $pupId, ${pupsList.any { it.id == pupId }}")
-
-    /*val intent = Intent(this, DetailActivity::class.java).apply {
-        putExtra("pupId", pupId)
-    }
-    startActivity(intent)*/
 }
 
 // Start building your app here!
@@ -86,21 +71,5 @@ fun MyApp(backDispatcher: OnBackPressedDispatcher) {
                 )
             }
         }
-    }
-}
-
-@Preview("Light Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun LightPreview() {
-    PupTheme {
-        //MyApp()
-    }
-}
-
-@Preview("Dark Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun DarkPreview() {
-    PupTheme(darkTheme = true) {
-        //MyApp()
     }
 }

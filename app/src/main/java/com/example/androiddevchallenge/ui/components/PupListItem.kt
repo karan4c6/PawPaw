@@ -35,12 +35,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.model.Pup
 import com.example.androiddevchallenge.model.pupsList
-import com.example.androiddevchallenge.ui.home.demo
 import com.example.androiddevchallenge.ui.theme.PupTheme
 import dev.chrisbanes.accompanist.coil.CoilImage
 
@@ -51,11 +53,15 @@ fun PupListItem(
 ) {
     PupCard(
         elevation = 4.dp,
-        shape = MaterialTheme.shapes.medium
+        shape = MaterialTheme.shapes.medium,
+        modifier = Modifier.semantics {
+            contentDescription = "Puppy ${pup.title} ${pup.description} Double Tap for More Details"
+        }
     ) {
         Surface(modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
+            .clearAndSetSemantics { }
             .clickable {
                 onItemClick(pup.id)
             }) {
@@ -64,16 +70,20 @@ fun PupListItem(
                 modifier = Modifier.wrapContentSize()
             ) {
                 PupSurface(
-                    modifier = Modifier.size(200.dp),
+                    modifier = Modifier
+                        .size(200.dp)
+                        .clearAndSetSemantics { },
                     color = Color.LightGray,
                     elevation = 4.dp,
                     shape = CircleShape,
                 ) {
                     CoilImage(
                         data = pup.imageUrl,
-                        contentDescription = pup.description,
+                        contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clearAndSetSemantics { },
                         loading = {
                             Box(Modifier.matchParentSize()) {
                                 CircularProgressIndicator(Modifier.align(Alignment.Center))
@@ -88,6 +98,7 @@ fun PupListItem(
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.h6,
                     color = MaterialTheme.colors.onSecondary,
+                    modifier = Modifier.clearAndSetSemantics { }
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
@@ -96,7 +107,9 @@ fun PupListItem(
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.subtitle1,
                     color = MaterialTheme.colors.onSecondary,
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    modifier = Modifier
+                        .padding(bottom = 8.dp)
+                        .clearAndSetSemantics { }
                 )
             }
         }
@@ -107,7 +120,9 @@ fun PupListItem(
 @Composable
 fun LightThemePupListItem() {
     PupTheme {
-        PupListItem(pupsList[0], ::demo)
+        PupListItem(
+            pupsList[0]
+        ) {}
     }
 }
 
@@ -115,6 +130,6 @@ fun LightThemePupListItem() {
 @Composable
 fun DarkThemePupListItem() {
     PupTheme(darkTheme = true) {
-        PupListItem(pupsList[0], ::demo)
+        PupListItem(pupsList[0]) {}
     }
 }

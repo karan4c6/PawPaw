@@ -33,12 +33,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
+import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.model.Pup
 import com.example.androiddevchallenge.model.pupsList
 import com.example.androiddevchallenge.ui.theme.PupTheme
@@ -64,14 +72,12 @@ fun PupDescription(pupId: Long, upPress: () -> Unit) {
 
     Box(Modifier.fillMaxSize()) {
         val scroll = rememberScrollState(0)
-//        Column(modifier = Modifier.verticalScroll(scroll)) {
         Header()
         PupDetailBody(pup, scroll)
         PupDetailTitle(pup, scroll.value)
-        PupDetailImage(pup.imageUrl, scroll.value)
+        PupDetailImage(pup.imageUrl, scroll.value, title = pup.title)
         Up(upPress)
     }
-    // }
 }
 
 @Composable
@@ -80,14 +86,7 @@ private fun Header() {
         modifier = Modifier
             .height(280.dp)
             .fillMaxWidth()
-            .background(
-                Brush.horizontalGradient(
-                    listOf(
-                        MaterialTheme.colors.primary,
-                        MaterialTheme.colors.primary
-                    )
-                )
-            )
+            .background(color = MaterialTheme.colors.primary)
     )
 }
 
@@ -103,17 +102,19 @@ fun Up(upPress: () -> Unit) {
                 color = MaterialTheme.colors.primary.copy(alpha = 0.8f),
                 shape = CircleShape
             )
+            .semantics { contentDescription = "Back" }
     ) {
         Icon(
             imageVector = Icons.Outlined.ArrowBack,
             tint = MaterialTheme.colors.onPrimary,
-            contentDescription = "Back Button"
+            contentDescription = null,
+            modifier = Modifier.clearAndSetSemantics { }
         )
     }
 }
 
 @Composable
-fun PupDetailImage(imageUrl: String, scroll: Int) {
+fun PupDetailImage(imageUrl: String, scroll: Int, title: String) {
 
     val collapseRange = with(LocalDensity.current) { (MaxTitleOffset - MinTitleOffset).toPx() }
     val collapseFraction = (scroll / collapseRange).coerceIn(0f, 1f)
@@ -126,10 +127,11 @@ fun PupDetailImage(imageUrl: String, scroll: Int) {
             color = Color.LightGray,
             elevation = 4.dp,
             shape = CircleShape,
+            modifier = Modifier.semantics { contentDescription = "Image of puppy $title" }
         ) {
             CoilImage(
                 data = imageUrl,
-                contentDescription = "",
+                contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
             )
@@ -169,15 +171,6 @@ private fun CollapsingImageLayout(
     }
 }
 
-fun lerp2(start: Int, stop: Int, fraction: Float): Int {
-    return start + ((stop - start) * fraction.toDouble()).roundToInt()
-}
-
-
-fun lerp1(start: Float, stop: Float, fraction: Float): Float {
-    return (1 - fraction) * start + fraction * stop
-}
-
 @Composable
 private fun PupDetailTitle(pup: Pup, scroll: Int) {
     val maxOffset = with(LocalDensity.current) { MaxTitleOffset.toPx() }
@@ -196,13 +189,22 @@ private fun PupDetailTitle(pup: Pup, scroll: Int) {
             text = pup.title,
             color = MaterialTheme.colors.onBackground,
             style = MaterialTheme.typography.h4,
-            modifier = Modifier.padding(start = 16.dp)
+            modifier = Modifier
+                .padding(start = 16.dp)
+                .semantics {
+                    contentDescription = "Name of Puppy is ${pup.title}"
+                    heading()
+                }
         )
         Text(
             text = pup.description,
             color = MaterialTheme.colors.onBackground,
             style = MaterialTheme.typography.body1.copy(fontSize = 18.sp),
-            modifier = Modifier.padding(start = 16.dp)
+            modifier = Modifier
+                .padding(start = 16.dp)
+                .semantics {
+                    contentDescription = "About Puppy ${pup.description}"
+                }
         )
         Spacer(Modifier.height(8.dp))
         PupDivider()
@@ -225,7 +227,6 @@ fun PupDetailBody(pup: Pup, scroll: ScrollState) {
             PupSurface(Modifier.fillMaxWidth()) {
                 Column {
                     Spacer(Modifier.height(ImageOverlap + TitleHeight))
-//                    Spacer(Modifier.height(16.dp))
                     Body(pup = pup)
                 }
             }
@@ -235,32 +236,24 @@ fun PupDetailBody(pup: Pup, scroll: ScrollState) {
 
 @Composable
 private fun Body(pup: Pup) {
-    PupDetailRow("Gender", pup.pupDetail.gender)
-    PupDetailRow("Breed ", pup.pupDetail.breed)
-    PupDetailRow("Color", pup.pupDetail.color)
-    PupDetailRow("Age", pup.pupDetail.age)
-    PupDetailRow("Desexed", if (pup.pupDetail.desexed) "Yes" else "No")
-    PupDetailRow("Location", pup.pupDetail.location)
-    PupDetailRow("Adoption Fee", pup.pupDetail.adoptionFee)
+    PupDetailRow(stringResource(R.string.gender), pup.pupDetail.gender)
+    PupDetailRow(stringResource(R.string.breed), pup.pupDetail.breed)
+    PupDetailRow(stringResource(R.string.color), pup.pupDetail.color)
+    PupDetailRow(stringResource(R.string.age), pup.pupDetail.age)
+    PupDetailRow(stringResource(R.string.desexed), if (pup.pupDetail.desexed) "Yes" else "No")
+    PupDetailRow(stringResource(R.string.location), pup.pupDetail.location)
+    PupDetailRow(stringResource(R.string.adoption_fee), pup.pupDetail.adoptionFee)
     PupDetailRow(
-        "Micro Chipped",
-        if (pup.pupDetail.microChipped) "Yes" else "No"
+        stringResource(R.string.micro_chipped),
+        if (pup.pupDetail.microChipped) stringResource(R.string.yes) else stringResource(R.string.no)
     )
-    PupDetailRow("Gender", pup.pupDetail.gender)
-    PupDetailRow("Breed ", pup.pupDetail.breed)
-    PupDetailRow("Color", pup.pupDetail.color)
-    PupDetailRow("Age", pup.pupDetail.age)
-    PupDetailRow("Desexed", if (pup.pupDetail.desexed) "Yes" else "No")
-    PupDetailRow("Location", pup.pupDetail.location)
-    PupDetailRow("Adoption Fee", pup.pupDetail.adoptionFee)
     PupDetailRow(
-        "Micro Chipped",
-        if (pup.pupDetail.microChipped) "Yes" else "No"
+        stringResource(R.string.wormed),
+        if (pup.pupDetail.wormed) stringResource(R.string.yes) else stringResource(R.string.no)
     )
-    PupDetailRow("Wormed", if (pup.pupDetail.wormed) "Yes" else "No")
     PupDetailRow(
-        "Vet Checked",
-        if (pup.pupDetail.vetChecked) "Yes" else "No"
+        stringResource(R.string.vet_checked),
+        if (pup.pupDetail.vetChecked) stringResource(R.string.yes) else stringResource(R.string.no)
     )
     Spacer(modifier = Modifier.height(16.dp))
     Row(modifier = Modifier.padding(start = 16.dp, top = 4.dp, end = 16.dp)) {
@@ -269,7 +262,7 @@ private fun Body(pup: Pup) {
                 .weight(0.5f)
                 .padding(end = 8.dp)
         ) {
-            Text(text = "Adopt Me", color = MaterialTheme.colors.onBackground)
+            Text(text = stringResource(R.string.adopt_me), color = MaterialTheme.colors.onBackground)
         }
         Button(
             onClick = { /*TODO*/ }, modifier = Modifier
@@ -278,7 +271,7 @@ private fun Body(pup: Pup) {
                     start = 8.dp
                 )
         ) {
-            Text(text = "Share", color = MaterialTheme.colors.onBackground)
+            Text(text = stringResource(R.string.share), color = MaterialTheme.colors.onBackground)
         }
     }
     Spacer(modifier = Modifier.height(56.dp))
@@ -286,7 +279,9 @@ private fun Body(pup: Pup) {
 
 @Composable
 private fun PupDetailRow(title: String, desc: String) {
-    Row(modifier = Modifier.padding(start = 16.dp, top = 4.dp)) {
+    Row(modifier = Modifier
+        .padding(start = 16.dp, top = 4.dp)
+        .semantics(mergeDescendants = true) { contentDescription = "$title is $desc" }) {
         Text(
             text = title,
             color = MaterialTheme.colors.onSecondary,
@@ -319,4 +314,12 @@ fun DarkThemePupDescription() {
     PupTheme(darkTheme = true) {
         PupDescription(pupsList[0].id, upPress = {})
     }
+}
+
+fun lerp2(start: Int, stop: Int, fraction: Float): Int {
+    return start + ((stop - start) * fraction.toDouble()).roundToInt()
+}
+
+fun lerp1(start: Float, stop: Float, fraction: Float): Float {
+    return (1 - fraction) * start + fraction * stop
 }
