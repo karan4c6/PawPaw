@@ -39,13 +39,18 @@ fun PupTopBar(modifier: Modifier = Modifier) {
                     .align(Alignment.CenterVertically)
             )
         }
-        Divider(
-            modifier = modifier,
-            color = Color.Black.copy(alpha = 0.2f),
-            thickness = 1.dp,
-            startIndent = 0.dp
-        )
+        PupDivider(modifier)
     }
+}
+
+@Composable
+fun PupDivider(modifier: Modifier = Modifier) {
+    Divider(
+        modifier = modifier,
+        color = Color.Black.copy(alpha = 0.2f),
+        thickness = 1.dp,
+        startIndent = 0.dp
+    )
 }
 
 @Preview(showBackground = true)

@@ -81,7 +81,8 @@ fun MyApp(backDispatcher: OnBackPressedDispatcher) {
             when (destination) {
                 Destination.Home -> Home(actions.selectPup)
                 is Destination.PupDetail -> PupDescription(
-                    pupId = destination.pupId
+                    pupId = destination.pupId,
+                    upPress = actions.upPress
                 )
             }
         }
