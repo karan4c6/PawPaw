@@ -2,7 +2,6 @@ package com.example.androiddevchallenge.ui.components
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,45 +13,34 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
 import com.example.androiddevchallenge.model.Pup
 import com.example.androiddevchallenge.model.pupsList
-import com.example.androiddevchallenge.ui.theme.Neutral8
 import com.example.androiddevchallenge.ui.theme.PupTheme
 import dev.chrisbanes.accompanist.coil.CoilImage
 import dev.chrisbanes.accompanist.insets.statusBarsPadding
@@ -96,7 +84,7 @@ private fun Header() {
                 Brush.horizontalGradient(
                     listOf(
                         MaterialTheme.colors.primary,
-                        MaterialTheme.colors.primaryVariant
+                        MaterialTheme.colors.primary
                     )
                 )
             )
@@ -118,7 +106,7 @@ fun Up(upPress: () -> Unit) {
     ) {
         Icon(
             imageVector = Icons.Outlined.ArrowBack,
-            tint = MaterialTheme.colors.background,
+            tint = MaterialTheme.colors.onPrimary,
             contentDescription = "Back Button"
         )
     }
@@ -134,7 +122,7 @@ fun PupDetailImage(imageUrl: String, scroll: Int) {
         collapseFraction = collapseFraction,
         modifier = HzPadding.then(Modifier.statusBarsPadding())
     ) {
-        JetsnackSurface(
+        PupSurface(
             color = Color.LightGray,
             elevation = 4.dp,
             shape = CircleShape,
@@ -206,19 +194,19 @@ private fun PupDetailTitle(pup: Pup, scroll: Int) {
         Spacer(Modifier.height(16.dp))
         Text(
             text = pup.title,
+            color = MaterialTheme.colors.onBackground,
             style = MaterialTheme.typography.h4,
             modifier = Modifier.padding(start = 16.dp)
         )
         Text(
             text = pup.description,
+            color = MaterialTheme.colors.onBackground,
             style = MaterialTheme.typography.body1.copy(fontSize = 18.sp),
             modifier = Modifier.padding(start = 16.dp)
         )
         Spacer(Modifier.height(8.dp))
         PupDivider()
     }
-
-
 }
 
 @Composable
@@ -234,12 +222,10 @@ fun PupDetailBody(pup: Pup, scroll: ScrollState) {
             modifier = Modifier.verticalScroll(scroll)
         ) {
             Spacer(Modifier.height(GradientScroll))
-            JetsnackSurface(Modifier.fillMaxWidth()) {
+            PupSurface(Modifier.fillMaxWidth()) {
                 Column {
-                    Spacer(Modifier.height(ImageOverlap))
-                    Spacer(Modifier.height(TitleHeight))
-
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(Modifier.height(ImageOverlap + TitleHeight))
+//                    Spacer(Modifier.height(16.dp))
                     Body(pup = pup)
                 }
             }
@@ -283,7 +269,7 @@ private fun Body(pup: Pup) {
                 .weight(0.5f)
                 .padding(end = 8.dp)
         ) {
-            Text(text = "Adopt Me")
+            Text(text = "Adopt Me", color = MaterialTheme.colors.onBackground)
         }
         Button(
             onClick = { /*TODO*/ }, modifier = Modifier
@@ -292,7 +278,7 @@ private fun Body(pup: Pup) {
                     start = 8.dp
                 )
         ) {
-            Text(text = "Share")
+            Text(text = "Share", color = MaterialTheme.colors.onBackground)
         }
     }
     Spacer(modifier = Modifier.height(56.dp))
@@ -303,12 +289,14 @@ private fun PupDetailRow(title: String, desc: String) {
     Row(modifier = Modifier.padding(start = 16.dp, top = 4.dp)) {
         Text(
             text = title,
+            color = MaterialTheme.colors.onSecondary,
             style = MaterialTheme.typography.subtitle1.copy(fontSize = 18.sp),
             modifier = Modifier
                 .weight(0.4f)
         )
         Text(
             text = desc,
+            color = MaterialTheme.colors.onSecondary,
             style = MaterialTheme.typography.body1.copy(fontSize = 18.sp),
             modifier = Modifier
                 .weight(0.6f)
