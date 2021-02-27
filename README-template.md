@@ -2,23 +2,32 @@
 
 <!--- Replace <OWNER> with your Github Username and <REPOSITORY> with the name of your repository. -->
 <!--- You can find both of these in the url bar when you open your repository in github. -->
-![Workflow result](https://github.com/karansyd4/PawPaw/workflows/Check/badge.svg)
-
+![Workflow result](https://github.com/karan4c6/PawPaw/workflows/Check/badge.svg)
 
 ## :scroll: Description
-<!--- Describe your app in one or two sentences -->
 
+<!--- Describe your app in one or two sentences -->
+With this app, user can find listings of puppies available for adoption all across Australia. Users
+can also find additional details regarding location, photos, adoption fees and general information,
+which can be shared with friends and family
 
 ## :bulb: Motivation and Context
-<!--- Optionally point readers to interesting parts of your submission. -->
-<!--- What are you especially proud of? -->
 
+<!--- Optionally point readers to interesting parts of your submission. -->
+You know someone who would be a perfect parent to these cute puppies, you can share them the link 
+to the app by clicking on the Share button.
+<!--- What are you especially proud of? --> 
+Added meaningful descriptions for talkback, so that special users can easily navigate through the
+app.
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
-<img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">
+<img src="/results/screenshot_1.png" width="260">
+&emsp;<img src="/results/screenshot_2.png" width="260">
+&emsp;<img src="/results/screenshot_3.png" width="260">
 
 ## License
+
 ```
 Copyright 2020 The Android Open Source Project
 
