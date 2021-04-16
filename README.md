@@ -7,6 +7,7 @@
 ## :scroll: Description
 
 <!--- Describe your app in one or two sentences -->
+**Developed using JetpackCompose UI for AndroidDevChallenge 2021**
 With this app, user can find listings of puppies available for adoption all across Australia. Users
 can also find additional details regarding location, photos, adoption fees and general information,
 which can be shared with friends and family
@@ -17,8 +18,10 @@ which can be shared with friends and family
 You know someone who would be a perfect parent to these cute puppies, you can share them the link to
 the app by clicking on the Share button.
 <!--- What are you especially proud of? -->
-Added meaningful descriptions for talkback, so that special users can easily navigate through the
-app.
+**Accessibility**
+This app supports talkback functionality.
+
+The app supports Dark Mode + Light Mode
 
 ## :camera_flash: Screenshots
 
